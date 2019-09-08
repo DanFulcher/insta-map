@@ -1,13 +1,24 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Map from './components/Map';
+
+import {selectPost} from './actions/mapActions';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <Map />
-    </div>
-  );
-}
+const App = ({selectedPost, selectPost}) => (
+  <div className="App">
+    <Map 
+      selectedPost={selectedPost} 
+      selectPost={selectPost}
+    />
+  </div>
+)
 
-export default App;
+const mapStateToProps = state => ({
+  selectedPost: state.selectedPost,
+}); 
+const mapDispatchToProps = dispatch => ({
+  selectPost: (id) => { dispatch(selectPost(id)); },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -27,10 +27,11 @@ class Map extends Component {
         })
         .catch(err => {
             console.log(err)
-        })
+        });
 
+        console.log(this.props.selectPost);
     }
-  
+    
     render() {
       const NavContainer = styled.div`
         position:absolute;
@@ -50,11 +51,17 @@ class Map extends Component {
           
               
           {this.state.posts.map((post, index) => ( 
-            <Marker key={index} latitude={post.location.latitude} longitude={post.location.longitude}>
+            <Marker 
+              key={index} 
+              latitude={post.location.latitude} 
+              longitude={post.location.longitude}
+            >
               <Polaroid 
                 img={post.images.thumbnail.url} 
                 loc={post.location.name}
                 date={post.created_time}
+                id={index}
+                selectPost={this.props.selectPost}
               />
             </Marker>
           ))}
@@ -62,6 +69,5 @@ class Map extends Component {
       );
     }
   }
-
 
 export default Map;
